@@ -29,6 +29,6 @@ func compilation(w http.ResponseWriter, r *http.Request) {
 	if (err != nil) {
 		fmt.Fprintf(w, "Anarchy!!!")
 	} else {
-	json.NewEncoder(w).Encode(output) }
+	json.NewEncoder(w).Encode(string(output)) }
 
 }
