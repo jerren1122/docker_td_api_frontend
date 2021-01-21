@@ -1,0 +1,17 @@
+services:
+  ny_times:
+    image: ny_times
+    hostname: ny_times
+
+  omdb_go:
+    image: omdb_go
+    hostname: omdb_go
+
+  front_end:
+    image: front_end
+    ports:
+      - 8083:8083
+    environment:
+      omdb_hostname: omdb_go
+      ny_times_hostname: ny_times
+

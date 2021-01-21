@@ -2,10 +2,11 @@ class Compilation
   require 'rest-client'
   require 'json'
 
-  attr_accessor(:host_name, :header, :json_store, :aggregate_hash)
+  attr_accessor(:header, :json_store, :aggregate_hash, :omdb_host, :ny_times_host)
 
   def initialize
-    @host_name = ENV['hostname'] ? ENV['hostname'] : 'localhost'
+    @omdb_host = ENV['omdb_hostname'] ? ENV['omdb_hostname'] : 'localhost'
+    @ny_times_host = ENV['ny_times_hostname'] ? ENV['ny_times_hostname'] : 'localhost'
     @header = {"content-type" => "charset=utf-8"}
     parse_input_json
     self.send(aggregate_hash['Method'])
@@ -14,14 +15,13 @@ class Compilation
   def return_article
     aggregate_hash.merge!(get_movie)
     aggregate_hash.merge!(get_article)
-    #this is what is returned to the go script that calls compilation
     keys_to_keep = ['Abstract']
     print JSON.generate( remove_keys(keys_to_keep, aggregate_hash.clone))
   end
 
   private
   def get_movie
-    url = "http://#{host_name}:8080/get-movie"
+    url = "http://#{omdb_host}:8080/get-movie"
     keys_to_keep = ['Movie']
     local_input = remove_keys(keys_to_keep, aggregate_hash.clone)
     body = local_input.to_json
@@ -30,7 +30,7 @@ class Compilation
   end
 
   def get_article
-    url = "http://#{host_name}:8081/get-article"
+    url = "http://#{ny_times_host}:8081/get-article"
     keys_to_keep = ['Year']
     local_input = remove_keys(keys_to_keep, aggregate_hash.clone)
     body = local_input.to_json
