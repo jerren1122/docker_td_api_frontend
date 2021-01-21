@@ -1,0 +1,4 @@
+#this is a locally hosted image that exists in the docker_go_ruby directory
+FROM docker_go_ruby
+
+CMD git clone https://github.com/jerren1122/omdb_go_database_hidden.git; cd omdb_go_database_hidden; go build; ./omdb_go_database_hidden;
