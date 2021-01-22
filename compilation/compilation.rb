@@ -14,12 +14,20 @@ class Compilation
 
   def return_article
     aggregate_hash.merge!(get_movie)
+    if check_error(aggregate_hash)
+      return
+    end
     aggregate_hash.merge!(get_article)
+    if check_error(aggregate_hash)
+      return
+    end
     keys_to_keep = ['Abstract']
-    print JSON.generate( remove_keys(keys_to_keep, aggregate_hash.clone))
+    output = JSON.generate(remove_keys(keys_to_keep, aggregate_hash.clone))
+    print output
   end
 
   private
+
   def get_movie
     url = "http://#{omdb_host}:8080/get-movie"
     keys_to_keep = ['Movie']
@@ -39,8 +47,20 @@ class Compilation
   end
 
   def remove_keys(keys_to_keep, hash)
-    hash.keep_if {|key, value| keys_to_keep.include?(key)}
+    hash.keep_if { |key, value| keys_to_keep.include?(key) }
   end
+
+  def check_error(hash)
+    if hash.keys.include?('Error')
+      keys_to_keep = ['Error']
+      output = JSON.generate(remove_keys(keys_to_keep, hash.clone))
+      print output
+      true
+    else
+      false
+    end
+  end
+
 
   def parse_input_json
     @aggregate_hash = {}

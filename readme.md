@@ -1,4 +1,5 @@
 **Docker**
+add what input is required 
 
 Talk about the various dockerfiles 
 
