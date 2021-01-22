@@ -51,3 +51,8 @@ Within this compose file we set hostnames for both the omdb and ny times contain
 Additionally for the front end service we pass the hostnames as environment variables that are picked up by the ruby script and utilized to interact with the omdb and ny_times endpoints. 
 
 We additionally publish only the front end api so that it is reachable on the machine running the compose file. 
+
+*Docker Swarm*  
+
+to deploy as a stack run docker stack deploy -c ./docker-compose.yaml api
+
