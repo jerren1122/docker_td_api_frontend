@@ -30,6 +30,16 @@ This additional API's have their own git Repo's: https://github.com/jerren1122/g
 
 In the compilation.rb script there are dynamic methods that pickup environment variables to determine if the endpoints are hosted on localhost(windows setup) or within the docker container. 
 
+**Debugging**
+VSCode has a debugging functionality for Go. We can run the go script in the debugger and then interact with the API via another tool like postman this will allow us to hit the breakpoints. 
+
+To interact in Postman once the API is up and running we would contact: 
+http://localhost:8083/compilation (as this is running on your local or surfaced on your local in the case of docker)
+for the body we would pass {
+                           "Movie": "Twister" 
+                           "Method": "return_article"
+                           }
+                           
 **Docker**
 
 *Dockerfiles* 
