@@ -30,6 +30,9 @@ This additional API's have their own git Repo's: https://github.com/jerren1122/g
 
 In the compilation.rb script there are dynamic methods that pickup environment variables to determine if the endpoints are hosted on localhost(windows setup) or within the docker container. 
 
+**Error Handling**
+In the compilation method in main.go we can see that if the string(output) value includes "Movie not found" we are returning a 204 error. this is an example of how this error handling would function. 
+
 **Debugging**
 VSCode has a debugging functionality for Go. We can run the go script in the debugger and then interact with the API via another tool like postman this will allow us to hit the breakpoints. 
 

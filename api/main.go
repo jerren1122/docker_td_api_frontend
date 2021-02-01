@@ -18,8 +18,11 @@ func main() {
 
 func compilation(w http.ResponseWriter, r *http.Request) {
 	reqBody,_:= ioutil.ReadAll(r.Body)
-	string_output:= strings.Replace(string(reqBody), "\n", "", -1)
-	cmd := exec.Command("ruby", "../compilation/compilation.rb", string_output)
+	string_input:= strings.Replace(string(reqBody), "\n", "", -1)
+	cmd := exec.Command("ruby", "../compilation/compilation.rb", string_input)
 	output,_ := cmd.Output()
-	json.NewEncoder(w).Encode(string(output)) }
+	if strings.Contains(string(output), "Movie not found") {
+	w.WriteHeader(204)}
+	json.NewEncoder(w).Encode(string(output))
+	 }
 
